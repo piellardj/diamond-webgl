@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <defs>
+        <path id="arrow" d="M -8 2 L -2 2 L -2 8 M -3 3 L -9 9" stroke-linecap="round" fill="none"/>
+
+        <g id="upsize">
+            <use href="#arrow" transform="translate(11,-11)"/>
+            <use href="#arrow" transform="rotate(180) translate(11,-11)"/>
+        </g>
+
+        <g id="upsize-hover">
+            <use href="#arrow" transform="translate(12,-12)"/>
+            <use href="#arrow" transform="rotate(180) translate(12,-12)"/>
+        </g>
+
+        <g id="downsize">
+            <use href="#arrow" transform="translate(-1,1)"/>
+            <use href="#arrow" transform="rotate(180) translate(-1,1)"/>
+        </g>
+
+        <g id="downsize-hover">
+            <use href="#arrow"/>
+            <use href="#arrow" transform="rotate(180)"/>
+        </g>
+
+        <g id="spritesheet">
+            <use href="#upsize" transform="translate(16,16)"/>
+            <use href="#upsize-hover" transform="translate(48,16)"/>
+            <use href="#downsize" transform="translate(16,48)"/>
+            <use href="#downsize-hover" transform="translate(48,48)"/>
+        </g>
+    </defs>
+
+    <use href="#spritesheet" stroke="black" stroke-width="4.5"/>
+    <use href="#spritesheet" stroke="white" stroke-width="2.5"/>
+</svg>
