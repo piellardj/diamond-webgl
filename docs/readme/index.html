@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Readme page of my project 'Diamond'. Ray-tracing engine for real-time diamond rendering in WebGL" />
+    <title>Diamond - Explanations</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
+    <link rel="stylesheet" type="text/css" href="css/page.css?v=2023-04-15T21%3A02%3A58.936Z">
+  </head>
+
+  <body>
+    <header>
+      <a class="logo logo-animate-fill" href="https://piellardj.github.io/diamond-webgl/" id="seep-live-button" title="Live project" aria-label="Live project">
+        <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+          <g stroke-width="2">
+            <path fill="none" stroke-linejoin="round" d="M24,20v24L46,32z" />
+        </svg>
+      </a>
+    </header>
+    <main>
+      <div class="contents">
+        <h1 id="diamondwebgl">diamond-webgl</h1>
+        <p>This is a real-time rendering engine for diamonds and gemstones. It allows precise control of the cut, and customization of various optical properties to simulate countless types of materials. It can also generate ASET images. The precision is more than enough to create the familiar hearts and arrows patterns of ideal cut diamonds.</p>
+        <p>The engine runs fully on GPU and uses both rasterization and ray-tracing, as well as post-processing techniques such as bloom and screen-space antialiasing.</p>
+        <p>It supports many gem shapes, and can render several gems simultaneously.</p>
+        <p>See it live <a href="https://piellardj.github.io/diamond-webgl/">here</a>.</p>
+        <h2 id="preview">Preview</h2>
+        <p><img src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/ring1.png" alt="Example of ring" /></p>
+        <p><img src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/bloom_final.png" alt="Round brilliant cut diamond" /></p>
+        <p><img src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/ring2.png" alt="Example of ring" /></p>
+        <p><img src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/models.png" alt="Examples of cuts" /></p>
+        <p><img src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/hearts.png" alt="Hearts pattern" /></p>
+        <p><img src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/ASET_arrows.png" alt="Arrows pattern" /></p>
+        <p><img src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/geometry.png" alt="Geometry" /></p>
+        <p><img src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/emerald.png" alt="Emerald" /></p>
+        <h2 id="diamond">Diamond</h2>
+        <h3 id="diamondcut">Diamond cut</h3>
+        <p>The beauty of a diamond resides not only in the purity of the gem, but also in the way it is cut. The purity affects mostly light absorption, while the cut affects the way light is reflected. The goal is to reflect as much light as possible towards the viewer (that is, towards the top of the gem) so that the diamond appears the brightest.</p>
+        <p>One of the most popular diamond cuts is the brilliant cut. Subtle variations in the proportions change greatly the way light is reflected and can make the difference between a mediocre and an ideal diamond. It is described by a few key lengths:</p>
+        <div style="text-align:center">
+          <img alt="Diagram of a round brilliant cut" src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/diamond_brilliant_cut.png" />
+          <p>
+            <i>Diagram of a round brilliant cut.</i>
+          </p>
+        </div>
+        <h3 id="asetevaluation">ASET evaluation</h3>
+        <p>A common tool to evaluate the quality of the cut of a diamond is the Angular Spectrum Evaluation Tool (ASET). Such an image helps to check the way the diamond gives light back, which depends on the cut quality and the clarity of the gem.</p>
+        <p>ASET images can either be taken with in with an ASET scope, or be computed. Here is what it represents:</p>
+        <div style="text-align:center">
+          <img alt="Explanation of ASET" src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/ASET_meaning.png" />
+          <p>
+            <i>This is what an ASET image represents.</i>
+          </p>
+        </div>
+        <p>On an ASET image, the blue is the light that comes directly from above, the green from the sides, and the red from between the two. The black parts are parts that don't reflect the light at all.
+          The ASET image of a high quality diamond should:</p>
+        <ul>
+          <li>be as bright as possible</li>
+          <li>exhibit a good symmetry</li>
+          <li>have as much red as possible</li>
+          <li>have blue areas that are very distinct from the red and green ones. This contributes to creating good contrasts between bright and dark areas.</li>
+        </ul>
+        <p>To generate an ASET image, orthographic projection should be used to avoid deformations due to perspective projection, especially when being too close to the gem. This project is accurate enough to generate realistic ASET images in real time. For instance, here are the visualizations of a diamond with an ideal brilliant cut, and their decomposition:</p>
+        <div style="text-align:center">
+          <img alt="Arrows visible with ASET" src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/ASET_arrows_decomposition.png" />
+          <p>
+            <i>Viewed from top, the arrows of the diamond are visible in the blue component of ASET.</i>
+          </p>
+        </div>
+        <div style="text-align:center">
+          <img alt="Hearts visible with ASET" src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/ASET_hearts_decomposition.png" />
+          <p>
+            <i>Viewed from bottom, the hearts of the diamond are visible in the red component of ASET.</i>
+          </p>
+        </div>
+        <h2 id="implementationdetails">Implementation details</h2>
+        <h3 id="geometricaloptics">Geometrical optics</h3>
+        <p>The behaviour of light rays as they go through the diamond can be described by a few simple rules.</p>
+        <h4 id="refractiveindex">Refractive index</h4>
+        <p>A medium such as diamond is defined by a refractive index n, which is defined as:</p>
+        <table>
+          <tr>
+            <td>
+              <img alt="Refractive index definition" src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/formula_refractive_index.png" />
+            </td>
+            <td>
+              <ul>
+                <li>c is the speed of light in void</li>
+                <li>v the speed of light in the medium</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+        <p>This is why a refractive index is always greater than 1. I approximated air to have a refractive index of 1.</p>
+        <p>The speed of light in the medium is defined as:</p>
+        <table>
+          <tr>
+            <td>
+              <img alt="Light speed formula" src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/formula_light_speed.png" />
+            </td>
+            <td>
+              <ul>
+                <li>λ is the wavelength</li>
+                <li>f is the frequency</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+        <p>The perceived color is linked to the frequency, which is independent of media. This formula shows that for a given medium, each color has a unique refractive index. This is how a prism turns white light into a visible rainbow.</p>
+        <h4 id="snellslaw">Snell's law</h4>
+        <p>When a incident ray r<sub>i</sub> hits an boundary between two media (for instance a side of the diamond), it is split in two:</p>
+        <ul>
+          <li>a part of the ray (r<sub>r</sub>) is reflected</li>
+          <li>another part (r<sub>t</sub>) is transmitted through the medium</li>
+        </ul>
+        <div style="text-align:center">
+          <img alt="Illustration of ray splitting" src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/reflection_refraction.png" width="400px" />
+        </div>
+        <p>Here all angles are considered to be in [0, π/2] and are defined relatively to the local normal of the surface.
+          The reflected ray has the same angle as the incident ray (θ<sub>i</sub> = θ<sub>r</sub>).
+          The relationship between θ<sub>i</sub> and θ<sub>t</sub> is described by Snell's law:</p>
+        <p><img src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/formula_snell.png" alt="Snell's formula" /></p>
+        <p>This formula shows that:</p>
+        <ul>
+          <li>if the ray is entering a medium with a higher refraction index, the transmitted ray will be closer to the normal than the incident ray;</li>
+          <li>if the ray is entering a medium with a lower refraction index, it is the other way around.</li>
+        </ul>
+        <h4 id="fresnel">Fresnel</h4>
+        <p>The intensity of the incident ray is split between the reflected ray and the transmitted ray (assuming there is no loss):</p>
+        <table>
+          <tr>
+            <td>
+              <img alt="Ray splitting formula" src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/formula_energy_split.png" />
+            </td>
+            <td>
+              <ul>
+                <li>F is the intensity of the incident ray</li>
+                <li>F<sub>r</sub> is the intensity of the reflected ray</li>
+                <li>F<sub>t</sub> is the intensity of the transmitted ray</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+        <p>Fresnel gives us these coefficients:</p>
+        <p><img src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/formula_fresnel.png" alt="Fresnel formula" /></p>
+        <p>This formula shows that the closer to the normal the incident ray is, the less reflective the surface is. This phenomenon is very natural and can be observed everywhere: if you are by a lake and look at the water at your feet, you clearly see the ground underneath the surface (no reflection due to perpendicular incident ray), however if you look in the distance, you only see the sky reflected by the water surface (high reflection due almost parallel incident ray).</p>
+        <h4 id="totalreflection">Total reflection</h4>
+        <p>If the light ray is entering a medium with a lower refractive index, the transmitted ray will be further away to the surface than the incident ray.</p>
+        <p>The critical angle (θ<sub>c</sub>) defines the maximum angle the incident ray can have to create a transmitted ray. Beyond this angle, the entirety of the incident ray is reflected. This is called a total reflection.</p>
+        <div style="text-align:center">
+          <img alt="Total reflection illustration" src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/total_reflection.png" width="400px" />
+        </div>
+        <p>This angle is simply provided by the Snell formula when θ<sub>t</sub> = π/2:</p>
+        <p><img src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/formula_critical_angle.png" alt="Formula of the critial angle" /></p>
+        <h4 id="beerabsorption">Beer absorption</h4>
+        <p>No medium is completely transparent: the light is a partially absorbed by the material it is traveling through. The more opaque the medium, the more light is absorbed. This is described by Beer's law:</p>
+        <table>
+          <tr>
+            <td>
+              <img alt="Beer's law formula" src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/formula_beer.png" />
+            </td>
+            <td>
+              <ul>
+                <li>L is the loss of intensity</li>
+                <li>α is the absorbance of the medium</li>
+                <li>d is the distance traveled through the medium</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+        <h3 id="postprocessing">Post processing</h3>
+        <h4 id="sparkleeffect">Sparkle effect</h4>
+        <p>A small sparkle effect is performed. It is essentially a bloom with a bidirectional blur:</p>
+        <ol>
+          <li>rendering to an off-screen texture, at full size</li>
+          <li>copying this texture into a smaller one (to make the next part cheaper) and extracting the bright parts</li>
+          <li>blurring the small texture (I don't use a gaussian blur, but simply blur in two directions in one pass to create a sparkle effect)</li>
+          <li>finally, combining both the full-sized and small texture</li>
+        </ol>
+        <div style="text-align:center">
+          <div>
+            <img src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/bloom_chain.png" />
+          </div>
+          <p>
+            <i>These are the steps for the sparkle post-processing effect.</i>
+          </p>
+        </div>
+        <h4 id="antialiasing">Antialiasing</h4>
+        <p>In this scene there are 2 types of aliasing:</p>
+        <ul>
+          <li>on the edges of the geometry. This one is due to the rasterization.</li>
+          <li>inside the diamond. This one is due to the processing of each fragment which might lead to neighbour fragments having very different colors.</li>
+        </ul>
+        <p>On my machine, asking for antialiasing with the <code>antialias</code> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext">WebGL flag</a> only removes the first type of aliasing. This makes me think it uses a kind of MSAA because a SSAA would also remove the fragment aliasing. I am not sure it is part of the WebGL spec, it is probably implementation-dependent.</p>
+        <p>When doing post-processing, I first render a scene to an off-screen texture. Unfortunately, WebGL 1 does not support antialiasing when rendering to a texture. To antialias the scene, I have two options:</p>
+        <ul>
+          <li>do a kind of SSAA where I use a texture twice larger than the screen, which I downsize back to screen dimensions later. I cannot do this because it would lead to way too many fragments being processed (each fragment takes a lot of processing power in a ray-tracing application).</li>
+          <li>or apply myself antialiasing as a step of post-processing without upsizing any buffer. This is the approach I chose.</li>
+        </ul>
+        <p>I implemented a simplified FXAA algorithm:</p>
+        <ol>
+          <li>to avoid treating each color channel separately, I first turn the image into greyscale by computing the luminance of each pixel. The luminance is defined as <code>(0.299 x red) + (0.587 x green) + (0.114 x blue)</code>, as suggested by W3C <a href="https://www.w3.org/TR/AERT/#color-contrast">here</a>.</li>
+          <li>I then determine which areas need antialiasing: for each texel, I sample its luminance and the luminance of the 8 closest neighbours.</li>
+          <li>I then sort the neighbours into 2 categories: the ones that look like the central texel, and the others</li>
+          <li>I then use this binary categorization to determine the direction if the edge (if there is one): mostly horizontal or vertical. Below is an example of a texel (in red) that is part of an horizontal edge because the difference between (1, 2, 3) and (6, 7, 8) is greater than the difference between (1, 4, 6) and (3, 5, 8).\
+            <img src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/antialiasing_direction_horizontal.png" alt="Antialiasing explanation" />
+          </li>
+          <li>Finally, I apply a blur in that direction.</li>
+        </ol>
+        <p>This algorithm provides a good antialiasing in one pass with only 9 texture fetches and cheap computation. To improve it, I would need to sample a larger neighbourhood, but I don't think it is worth it. If you want to go further, <a href="http://blog.simonrodriguez.fr/articles/30-07-2016_implementing_fxaa.html">here is a great description of FXAA</a>.</p>
+        <p>Here is the result I obtain:</p>
+        <div style="text-align:center">
+          <img alt="Antialiasing result" src="https://github.com/piellardj/diamond-webgl/raw/main/src/readme/antialiasing_magnified_4x.png" />
+          <p>
+            <i>Source image on the left, antialiased image on the right. Notice how most edges are antialiased, while still preserving sharp details such as dots and vertical/horizontal/diagonal lines.</i>
+          </p>
+        </div>
+        <h2 id="otherapproaches">Other approaches</h2>
+        <p>This ray tracing project is quite processing-heavy for the GPU because for each fragment and each ray rebound, we have to check intersection with all facets of the gem. For a typical diamond, it is 89 intersections. (In reality it is a bit less than this because the shader tries to skip facets that are behind.) The overall complexity is roughly FRAGMENTS<em>COUNTxREBOUNDS</em>COUNTxFACETS_COUNTS.</p>
+        <p>Another approach would be to first generate a cube map of the diamond sides seen from the center of the gem, and then sample this texture directly in the direction of the ray. This way, the complexity is only FRAGMENTS<em>COUNTxREBOUNDS</em>COUNT. However, this leads to 2 issues:</p>
+        <ul>
+          <li>first, the precision is dependent of the resolution of the cube map</li>
+          <li>then, this approach is by essence not accurate, because the diamond is not a sphere, so its projection would be deformed. An adjustment mechanism would be necessary, which would cost more texture fetches. </li>
+        </ul>
+      </div>
+    </main>
+
+    <footer>
+      <div class="badge-shelf">
+        <a class="badge" href="mailto:jeremie.piellard@gmail.com" title="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 512 512">
+            <path d="M512 85V448H0V85l256 224L512 85zM488 64H24L256 267 488 64z" />
+          </svg>
+        </a>
+
+        <a class="badge" href="https://github.com/piellardj" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 1024 1024">
+            <path d="M512 0C229 0 0 229 0 512c0 226 147 418 350 486 26 5 35-11 35-25 0-12 0-53-1-95C242 909 212 818 212 818c-23-59-57-75-57-75-47-32 4-31 4-31 51 4 78 53 78 53 46 78 120 56 149 43 5-33 18-56 33-68C305 725 185 682 185 485c0-56 20-102 53-137-5-13-23-65 5-136 0 0 43-14 141 53 41-11 85-17 128-17 44 0 87 6 128 17 98-66 141-52 141-52 28 71 10 123 5 136 33 36 53 81 53 137 0 197-120 240-234 253 18 16 35 47 35 95 0 68-1 124-1 141 0 14 9 30 35 25C877 930 1024 738 1024 512 1024 229 795 0 512 0z" />
+          </svg>
+        </a>
+
+        <a class="badge" href="https://www.linkedin.com/in/jeremie-piellard/" title="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 512 512">
+            <path d="M30 177l93-1v304l-93 1v-304z" />
+            <path d="M200 177l89-1v39l0 11c26-26 53-45 97-45 51 0 100 21 100 91v208l-90 1v-159c0-35-9-58-51-58-37 0-52 7-52 55v160l-92 1v-304z" />
+            <path d="M128 81c0 28-23 51-51 51s-51-23-51-51c0-28 23-51 51-51 28 0 51 23 51 51z" />
+          </svg>
+        </a>
+      </div>
+    </footer>
+  </body>
+
+</html>
