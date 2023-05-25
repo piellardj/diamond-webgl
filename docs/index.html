@@ -11,7 +11,7 @@
     <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
-    <link rel="stylesheet" type="text/css" href="css/page.css?v=2023-05-23T12%3A56%3A24.057Z">
+    <link rel="stylesheet" type="text/css" href="css/page.css?v=2023-05-25T06%3A58%3A21.434Z">
   </head>
 
   <body>
@@ -442,10 +442,34 @@
                   <label for="post-processing-checkbox-id" class="checkmark"></label>
                 </div>
               </div>
-              <div class="control" id="control-bloom-strength-range-id">
-                <label>Bloom:</label>
+              <div class="control" id="control-bloom-threshold-range-id">
+                <label>Bloom threshold:</label>
                 <div class="range-container">
-                  <input type="range" min="0" max="1" value="1" step="0.01" class="slider" id="bloom-strength-range-id">
+                  <input type="range" min="0.5" max="1" value="0.995" step="0.001" class="slider" id="bloom-threshold-range-id">
+                  <div class="range-skin-container">
+                    <div class="range-stub">
+                      <span class="range-bar range-bar-left range-stub-left"></span>
+                    </div>
+                    <div class="range-progress">
+                      <div class="range-progress-left">
+                        <span class="range-bar range-bar-left"></span>
+                        <span class="range-handle"></span>
+                        <output for="bloom-threshold-range-id" class="range-tooltip"></output>
+                      </div>
+                      <div class="range-progress-right">
+                        <span class="range-bar range-bar-right"></span>
+                      </div>
+                    </div>
+                    <div class="range-stub">
+                      <span class="range-bar range-bar-right range-stub-right"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="control" id="control-bloom-strength-range-id">
+                <label>Bloom intensity:</label>
+                <div class="range-container">
+                  <input type="range" min="0" max="2" value="1" step="0.02" class="slider" id="bloom-strength-range-id">
                   <div class="range-skin-container">
                     <div class="range-stub">
                       <span class="range-bar range-bar-left range-stub-left"></span>
@@ -598,12 +622,12 @@
     <script type="text/javascript">
       var Page = Page || {};
       Object.defineProperty(Page, "version", {
-        value: "2023-05-23T12%3A56%3A24.057Z",
+        value: "2023-05-25T06%3A58%3A21.434Z",
         writable: false,
       });
     </script>
-    <script src="script/page.min.js?v=2023-05-23T12%3A56%3A24.057Z"></script>
-    <script src="script/main.min.js?v=2023-05-23T12%3A56%3A24.057Z"></script>
+    <script src="script/page.min.js?v=2023-05-25T06%3A58%3A21.434Z"></script>
+    <script src="script/main.min.js?v=2023-05-25T06%3A58%3A21.434Z"></script>
   </body>
 
 </html>
