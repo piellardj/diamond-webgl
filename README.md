@@ -7,6 +7,8 @@ It supports many gem shapes, and can render several gems simultaneously.
 
 See it live [here](https://piellardj.github.io/diamond-webgl/).
 
+[![Donate](https://raw.githubusercontent.com/piellardj/piellardj.github.io/master/images/readme/donate-paypal.svg)](https://www.paypal.com/donate/?hosted_button_id=AF7H7GEJTL95E)
+
 ## Preview
 
 ![Example of ring](src/readme/ring1.png)
