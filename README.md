@@ -9,7 +9,7 @@ It supports many gem shapes, and can render several gems simultaneously.
 <div style="text-align:center;margin-top:1em">
     <a href="https://3djewelryviewer.com">
         <span>3djewelryviewer.com ↗</span>
-        <img src="src/static/3djewelryviewer/illustration_500.jpg" alt="Illustration for 3djewelryviewer.com" style="display:block;margin:.5em auto 0;"/>
+        <img src="docs/3djewelryviewer/illustration_500.jpg" alt="Illustration for 3djewelryviewer.com" style="display:block;margin:.5em auto 0;"/>
     </a>
     </div>
 </div>
