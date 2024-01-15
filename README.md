@@ -7,7 +7,7 @@ It supports many gem shapes, and can render several gems simultaneously.
 
 <div style="background: rgba(200,200,200,0.25);padding: 8px;border-radius: 8px;box-shadow: 0 0 6px rgba(0,0,0,0.5);">If you want to see the latest version of the engine or want to discuss commercial use, please go to my dedicated website:
 <div style="text-align:center;margin-top:1em">
-    <a href="https://3djewelryviewer.com">
+    <a href="https://www.3djewelryviewer.com">
         <p>3djewelryviewer.com ↗</p>
         <img src="docs/3djewelryviewer/illustration_500.jpg" alt="Illustration for 3djewelryviewer.com" style="display:block;margin:.5em auto 0;"/>
     </a>
