@@ -5,6 +5,15 @@ The engine runs fully on GPU and uses both rasterization and ray-tracing, as wel
 
 It supports many gem shapes, and can render several gems simultaneously.
 
+<div style="background: rgba(200,200,200,0.25);padding: 8px;border-radius: 8px;box-shadow: 0 0 6px rgba(0,0,0,0.5);">If you want to see the latest version of the engine or want to discuss commercial use, please go to my dedicated website:
+<div style="text-align:center;margin-top:1em">
+    <a href="https://3djewelryviewer.com">
+        <span>3djewelryviewer.com ↗</span>
+        <img src="src/static/3djewelryviewer/illustration_500.jpg" alt="Illustration for 3djewelryviewer.com" style="display:block;margin:.5em auto 0;"/>
+    </a>
+    </div>
+</div>
+
 See it live [here](https://piellardj.github.io/diamond-webgl/).
 
 [![Donate](https://raw.githubusercontent.com/piellardj/piellardj.github.io/master/images/readme/donate-paypal.svg)](https://www.paypal.com/donate/?hosted_button_id=AF7H7GEJTL95E)
